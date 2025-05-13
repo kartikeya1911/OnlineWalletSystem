@@ -2,3 +2,7 @@
 [TxnID: 90d058f9] Received Rs.35000.0 from kartikeya
 [TxnID: 082546f9] Deposited Rs.3500.0
 [TxnID: 6905d388] Sent Rs.5000.0 to krish
+[TxnID: bf524c23] Deposited Rs.2500.0
+[TxnID: c544ad3a] Sent Rs.30000.0 to krish
+[TxnID: 39ea4917] Sent Rs.2100.0 to naman
+[TxnID: 14ec74c9] Sent Rs.3100.0 to lakshya

@@ -2,20 +2,28 @@ import java.io.*;
 import java.util.HashMap;
 
 public class FileManager {
+    // Declares the filenames and folder where user data will be saved.
     private static final String CREDENTIALS_FILE = "users.txt";
     private static final String PERSONAL_DATA_FILE = "personal.txt";
     private static final String TRANSACTIONS_FOLDER = "transactions/";
 
-    private static HashMap<String, String> userCache = new HashMap<>(); // 2. HashMap
+    //Hashmap because it could be used to store data in memory for faster access
+    private static HashMap<String, String> userCache = new HashMap<>();
 
+
+// saves new user informations
     public static void saveUser(User user) {
         try {
             new File(TRANSACTIONS_FOLDER).mkdirs();
-
+            // in user.txt
+            //updateOrAppendLine(String filename, String username, String newData)
             updateOrAppendLine(CREDENTIALS_FILE, user.getUsername(), user.getUsername() + "," + user.getPassword());
+
+            //in personal.txt
             updateOrAppendLine(PERSONAL_DATA_FILE, user.getUsername(),
                 user.getUsername() + "," + user.getEmail() + "," + user.getPhone() + "," + user.getAccountNumber() + "," + user.getBalance());
 
+            //in transaction folder
             BufferedWriter txnWriter = new BufferedWriter(new FileWriter(TRANSACTIONS_FOLDER + user.getUsername() + ".txt"));
             for (String txn : user.getLast10Transactions()) {
                 txnWriter.write(txn);
@@ -27,11 +35,13 @@ public class FileManager {
         }
     }
 
+
+// create a file if not present and update the changes of user
     private static void updateOrAppendLine(String filename, String username, String newData) throws IOException {
         File inputFile = new File(filename);
         File tempFile = new File("temp_" + filename);
     
-        //  Ensure file exists
+    //  Ensure file exists (if file not exists, it create a new one)
         if (!inputFile.exists()) {
             inputFile.createNewFile();
         }
@@ -40,7 +50,7 @@ public class FileManager {
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         String line;
-    
+    // ensure only current user data is modified
         while ((line = reader.readLine()) != null) {
             if (line.startsWith(username + ",")) {
                 writer.write(newData);
@@ -70,11 +80,16 @@ public class FileManager {
     }
     
 
+
     public static User loadUser(String username) {
+        //for user.txt file
         try {
             BufferedReader credReader = new BufferedReader(new FileReader(CREDENTIALS_FILE));
+
             String line;
             String password = null;
+
+        //check username and password while login
             while ((line = credReader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts[0].equals(username)) {
@@ -89,11 +104,15 @@ public class FileManager {
                 return null;
             }
 
+            //for personal.txt file
             BufferedReader personalReader = new BufferedReader(new FileReader(PERSONAL_DATA_FILE));
+            // default value in buffer
             String email = "", phone = "", accountNumber = "";
             double balance = 0;
+
             while ((line = personalReader.readLine()) != null) {
                 String[] parts = line.split(",");
+                //check only user info will get change
                 if (parts[0].equals(username)) {
                     email = parts[1];
                     phone = parts[2];
@@ -106,6 +125,7 @@ public class FileManager {
 
             User user = new User(username, password, email, phone, balance);
 
+            //for transaction folder
             File txnFile = new File(TRANSACTIONS_FOLDER + username + ".txt");
             if (txnFile.exists()) {
                 BufferedReader txnReader = new BufferedReader(new FileReader(txnFile));

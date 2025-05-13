@@ -1,2 +1,4 @@
-kartikeya,jainkartikeya9@gmail.com,9499166339,4ad87244-d,104800.0
-krish,asdfghjkl,asdfghjkl;,cd829896-5,103000.0
+kartikeya,kartikeya@example.com,9499166339,ae77d030-7,72100.0
+krish,asdfghjkl,asdfghjkl;,b2f2490e-9,103000.0
+naman,naman,,54dae8e8-6,32100.0
+lakshya,lakshya@example.com,123456789,5b9cb1a6-6,653100.0

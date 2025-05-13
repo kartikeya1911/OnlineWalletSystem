@@ -5,11 +5,12 @@ import java.util.Stack;
 public class OnlineWalletSystem {
     private static Scanner scanner = new Scanner(System.in);
     private static User currentUser = null;
-    private static Stack<String> logHistory = new Stack<>(); // 4. Stack
+    private static Stack<String> logHistory = new Stack<>();
 
     public static void main(String[] args) {
+        //welcome and option to register,login
         while (true) {
-            System.out.println("\n********** Welcome to the Simple Wallet System **********");
+            System.out.println("\n********** Welcome to the Online Wallet System **********");
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Exit");
@@ -21,7 +22,7 @@ public class OnlineWalletSystem {
             else break;
         }
     }
-
+    // register new user
     private static void register() {
         System.out.println("\n********** Registration **********");
         System.out.print("Enter username: ");
@@ -37,10 +38,11 @@ public class OnlineWalletSystem {
 
         currentUser = new User(username, password, email, phone, balance);
         FileManager.saveUser(currentUser);
-        System.out.println("\nRegistered and logged in successfully!");
+        System.out.println("\nRegistered and logged in Successfully!");
         dashboard();
     }
 
+    //login user
     private static void login() {
         System.out.println("\n********** Login **********");
         System.out.print("Username: ");
@@ -59,6 +61,7 @@ public class OnlineWalletSystem {
         }
     }
 
+    // main dashboard after successful login
     private static void dashboard() {
         while (true) {
             System.out.println("\n********** Dashboard **********");
